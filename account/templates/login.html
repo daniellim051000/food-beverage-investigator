@@ -13,17 +13,55 @@
 	<div class="card" style="width: 25rem;">
 		<img src="https://miro.medium.com/max/1100/0*Dt1vryRIIHsOmDsA.jpg" class="card-img-top" alt="...">
 		<div class="card-body">
-			<form action="">
+			<form action="{% url 'login' %}", method="post">
 				{% csrf_token %}
 				<h1 class="h4 mb-3 fw-normal text-center">Please sign in</h1>
 				{{form|crispy}}
 				<button class="w-100 btn btn-lg btn-primary mt-4" type="submit">Sign in</button>
 			</form>
-			<p class="mt-4 mb-3 text-muted">© 2021 – 2022</p>
 		</div>
-
-
+		<div class="mt-3 mb-5">
+			<a href="#registerModal"class="link-info font-weight-light text-center" type="link" data-toggle="modal"
+			data-target="#registerModal">
+			<h6>No Account Yet? Try Registering Here</h6>
+			</a>
+		</div>
+		<p class="mt-4 mb-3 text-muted text-center">© 2021 – 2022</p>
 	</div>
-</body>
 
+	<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content register">
+    	<div class="modal-header register text-center">
+        	<h5 class="modal-title register w-100 ml-4" id="registerModalLabel">Registration</h5>
+          <button type="button" class="close" style="color:white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <form method="POST" action="{% url 'register' %}">
+        <div class="container">
+            <div class="col-12">
+              	<div class="modal-body register-title">
+					{% csrf_token %} 
+					{{create_form|crispy}}
+				</div>
+				<div class="container">
+					<div class="col-md-12 text-center">
+					<button type="submit" class="btn text-white login-button ">REGISTER</button>
+					</div>
+				</div>
+            </div>
+		</div>
+        </form>
+	</div>
+    </div>
+  </div>
+</body>
+<script>
+    function myFunction(){
+        $('#registerModal').modal('show') 
+    }
+</script>
 </html>

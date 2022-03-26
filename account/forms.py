@@ -8,10 +8,10 @@ class loginForm(AuthenticationForm):
         label=("Remember Me"), initial=False, required=False
     )
     username = UsernameField(label="", widget=forms.TextInput(
-        attrs={'placeholder': 'Username', 'type': 'text', 'name': 'txt'}
+        attrs={'placeholder': 'Username', 'name': 'txt', 'class': 'mb-3'}
     ))
     password = forms.CharField(label="", widget=forms.TextInput(
-        attrs={'placeholder': 'Password', 'type': 'password', 'name': 'pswd'}
+        attrs={'placeholder': 'Password', 'name': 'pswd', 'class': 'mb-4', 'type': 'password'}
     ))
 
 
