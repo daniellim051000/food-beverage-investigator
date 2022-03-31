@@ -21289,6 +21289,7 @@ hr.horizontal.gray-light {
     overflow-y: auto;
     padding: 0;
     box-shadow: none;
+    background-color: #67748e;
   }
 
   .navbar-vertical.navbar-expand-xl .navbar-collapse {

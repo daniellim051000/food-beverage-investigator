@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     
     'account',
+    'dashboard',
+    'data',
 ]
 
 AUTH_USER_MODEL = 'account.Account'
