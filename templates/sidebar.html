@@ -18,12 +18,11 @@
 <aside
   class="hidden-scroll sidenav navbar navbar-vertical navbar-expand-xs border-0 fixed-start"
   id="sidenav-main">
-  <div class="sidenav-header">
+  <div class="sidenav-header" >
     <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
       aria-hidden="true" id="iconSidenav"></i>
-    <a class="navbar-brand m-0" href="{% url 'home' %}">
-      <img src="{% static '/img/NEW_CCB_LOGO.png' %}" class="navbar-brand-img h-100" alt="main_logo" />
-      <span class="ms-1 font-weight-bold">Restaurant Analytics</span>
+    <a class="" href="{% url 'home' %}">
+      <img src="{% static '/img/ra_logo.png' %}"alt="main_logo" style="margin: auto; width: 5rem;" />
     </a>
   </div>
   <hr class="horizontal dark mt-0">
@@ -41,9 +40,14 @@
           <span class="nav-link-text ms-1">Dashboard</span>
         </a>
       </li>
-
       <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{% url 'data_list' %}">
+          <i class="fa-solid fa-utensils fa-sm fa-fw mr-2 text-gray-400"></i>
+          <span class="nav-link-text ms-1">Restaurant List</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'add_data' %}">
           <i class="fas fa-store fa-sm fa-fw mr-2 text-gray-400"></i>
           <span class="nav-link-text ms-1">Add Location</span>
         </a>

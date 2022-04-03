@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block content_container %}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/itemRegs.css' %}">
+    <style>
+        .asteriskField {
+            display: none;
+        }
+    </style>
+    <title>Add Restaurant Detail</title>
+    <h1 class="h3 mb-0 text-gray-800">Add Restaurant</h1><br>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col">
+                {{ form.restaurant_name|as_crispy_field}}
+            </div>
+            <div class="col">
+                {{ form.restaurant_type|as_crispy_field}}
+            </div>
+        </div>
+        <div class="row">
+            {{ form.address|as_crispy_field}}
+        </div>
+        <div class="row">
+            <div class="col">
+                {{ form.online_order|as_crispy_field}}
+            </div>
+            <div class="col">
+                {{ form.booking|as_crispy_field}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {{ form.pricing_level|as_crispy_field}}
+            </div>
+            <div class="col">
+                {{ form.hygiene_level|as_crispy_field}}
+            </div>
+            <div class="col">
+                {{ form.average_serving|as_crispy_field}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {{ form.latitude|as_crispy_field}}
+            </div>
+            <div class="col">
+                {{ form.longitude|as_crispy_field}}
+            </div>
+        </div>
+        <div id="map" style="height: 250; width: 100%; "></div>
+        <br>
+        <button type="submit" class="btn btn-secondary">Submit</button>
+    </form>
+
+    {% endblock content_container %}
+    {% block javascript %}
+    <script src="{% static 'js/google_map.js' %}"></script>
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUn1Joj9Yv9sNMYnHfJDw0dFJvCQJ2FM0&callback=initMap&v=weekly&channel=2"
+    async>
+    </script>
+    {% endblock %}

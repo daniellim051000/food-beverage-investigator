@@ -127,3 +127,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+data/migrations/0001_initial.py
+data/migrations/0002_restaurantreview_rating.py

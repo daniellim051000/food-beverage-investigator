@@ -21561,6 +21561,7 @@ hr.horizontal.gray-light {
 
 .sidenav-header {
   height: 4.875rem;
+  padding: 5rem;
 }
 
 .sidenav-footer .card.card-background:after {
