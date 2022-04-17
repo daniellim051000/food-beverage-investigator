@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link rel="apple-touch-icon" sizes="76x76" href="{% static '/img/apple-icon.png' %}" />
-    <link rel="icon" type="image/png" href="{% static '/img/NEW_CCB_LOGO.png' %}" />
+    <link rel="icon" type="image/png" href="{% static '/img/ra_logo.png' %}" />
     <title>Restaurant Analytics</title>
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
@@ -13,8 +13,8 @@
     <!--     Fonts and icons     -->
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>  
-    <script src="{% static '/js/core/popper.min.js' %}"></script>
-    <script src="{% static '/js/core/bootstrap.min.js' %}"></script>
+    <script src="{% static '/js/popper.min.js' %}"></script>
+    <script src="{% static '/js/bootstrap.min.js' %}"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Nucleo Icons -->
     <link href="{% static '/css/nucleo-icons.css' %}" rel="stylesheet" />
@@ -44,49 +44,47 @@
     <link rel="stylesheet" href="{% static 'css/dataTables.dateTime.min.css' %}">
 </head>
 
-<body class="g-sidenav-show bg-gray-100" style="overflow-y: hidden; overflow-x: hidden;">
-    {% include 'sidebar.html' %}
-    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-
-         <!---here is content-->
-        {% if messages %}
-            {% for message in messages %}
-                {% if 'error' in message.tags %}
-                    <div class="alert alert-danger alert-dismissible" role="alert">
-                        {{ message }}
-                        <a href="#" class="btn-close" data-dismiss="alert" aria-label="Close"> &times;</a>
-                    </div>
-                {% endif %}
-                {% if 'success' in message.tags %}
-                    <div id="myDiv" class="alert alert-default alert-dismissible" role="alert" style="background-color: rgb(160, 232, 179);">  
-                    {{ message }}
-                    <a href="#" class="btn-close" data-dismiss="alert" aria-label="Close"> &times;</a>
-                    
-                </div>
-                {% endif %}
-                {% if 'warning' in message.tags %}
-                    <div class="alert alert-danger alert-dismissible" role="alert">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">&times;</button> 
-                    </div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-
-
-        {% include 'header.html' %}
-        <div class="container-fluid py-4">
-            {% block content_container %}
-            {% endblock %}
-            {% include 'footer.html' %}
+{% include 'loader.html' %}
+<body class="g-sidenav-show content bg-gray-100 p-0" style="overflow-y: hidden;">
+    <div id="wrapper" class="d-none h-100">
+        <div class="" style="position: sticky; z-index: 2000; background-color: #21325E; color: white;">
+            {% include 'sidebar.html' %}
         </div>
+        <main id="content-wrapper" class="main-content d-flex flex-column position-relative max-height-vh-100 h-100" style="background: #f2f0f0;">
+            
+            <div id="content">
+                <!---here is content-->
+                {% include 'header.html' %}
+                <div class="container-fluid py-4 pb-6">
+                    {% block content_container %}
+                    {% endblock %}
+                    {% include 'footer.html' %}
+                </div>
+            </div>
+        </main>
         {% block javascript %} 
         {% endblock %}
-    </main>
+    </div>
 </body>
-     {% comment %} <script>
-        $( document ).ready(function() {
-            document.getElementById("myDiv").style.backgroundColor = "#64E8B7";
-        });
-        </script> {% endcomment %}
+</body>
+<script>
+    $("#myDiv").fadeOut(5000);
+
+    const loader = document.querySelector('.loader');
+    const wrapper = document.querySelector('#wrapper');
+
+    $.ajax({
+                type: 'GET',
+                url: window.location.pathname,
+                success: async (res) => {
+                    if(res) {
+                        loader.classList.add('d-none');
+                        wrapper.classList.remove('d-none');
+                    };
+                },
+                error : async (err) => {
+                    console.log(err);
+                }
+    })
+</script>
 </html>

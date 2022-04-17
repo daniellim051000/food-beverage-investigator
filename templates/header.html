@@ -1,48 +1,195 @@
-<!-- Navbar -->
-<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none" id="navbarBlur"
-  navbar-scroll="true">
-  <div class="container-fluid px-3">
-    <h6 class="font-weight-bolder mb-0">Dashboard</h6>
+{% load static %}
+<style>
+  .nav-header{
+    display: flex; 
+    flex-direction:row; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 30px 10%;
+    margin: 0;
+  }
 
-    <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-      <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-      </div>
-      <ul class="navbar-nav justify-content-end" style="margin-right: 1%">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list-4"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbar-list-4">
-          <ul class="navbar-nav">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" style="margin-top: 20%" href="#" id="navbarDropdownMenuLink"
-                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="margin-left:30px">
-                {% comment %} <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a> {% endcomment %}
-                <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                  Log Out
-                </button>
-              </div>
-            <li class="nav-item d-flex align-items-center">
+  .notification-menu{
+    visibility: hidden;
+    display: none;
+    padding-left: 10px; 
+    width: 240px;
+    box-shadow:5px 5px 10px rgb(214, 214, 214); 
+  }
 
-              <a href="#" class="nav-link text-body font-weight-bold px-0">
-                <i class="fa fa-user me-sm-1"></i>
-                <span class="d-sm-inline d-none">{{request.user.username}}</span>
-              </a>
-            </li>
-            <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
-              <a href="#" class="nav-link text-body p-0" id="iconNavbarSidenav">
-                <div class="sidenav-toggler-inner">
-                  <i class="sidenav-toggler-line"></i>
-                  <i class="sidenav-toggler-line"></i>
-                  <i class="sidenav-toggler-line"></i>
-                </div>
-              </a>
-            </li>
-          </ul>
+  .notification-item:hover > .notification-menu, .notification-menu:hover{
+    visibility: visible;
+    display: block;
+  } 
+
+  .profile-menu{
+    visibility: hidden;
+    display:none; 
+    float:none; 
+    box-shadow:5px 5px 10px rgb(214, 214, 214); 
+    right: 0; 
+    width: 300px;
+  }
+
+  .dropdown-profile:hover > .profile-menu, .profile-menu:hover{
+    visibility: visible;
+    display: block;
+  } 
+
+  @media all and (max-width: 961px){
+    .nav-header {
+      flex-direction: column;
+    }
+  }
+</style>
+<nav class="navbar navbar-main navbar-expand-sm shadow-none border-radius-sm" id="navbarBlur"
+  navbar-scroll="true" style="background-color: #fff; border-radius:0px; padding-bottom: 0;">
+  <div class="container-fluid nav-header py-1 px-3" style="padding-bottom: 0;">
+
+    <div class="d-flex justify-content-center align-items-center">
+      
+      <input type="text" placeholder="Search..." name="search" size="40px;" class="form-control form-control-sm">
+      <button type="submit" class="btnN btn-sm btn-outline-primary" size="40px; margin-bottom:0;"><i class="fa fa-search"></i></button>
+    </div> 
+
+    <ul class="header-items" style="list-style:none; margin:0; margin-top:2px; padding: 0;">
+      <li class="header-item notification-item" style="display: inline-block; padding: 0px 10px;">
+        <a class="header-item my-auto hover-overlay" style="height: 100%; display: inline-block; vertical-align:middle; color:black;" href="#" id="notificationDropdownMenuLink"
+        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <!--<span><i class="fa fa-bell" style="color:rgb(46, 40, 84);"></i></span>-->
+        <span><i class="fa fa-bell"></i></span>
+        <span class="badge text-dark" id="notification-badge">0</span>        
+        </a>
+        <div class="notification-menu dropdown-menu mr-3 " aria-labelledby="notificationDropdownMenuLink">
+          {% comment %} <a href="#">
+            notification placeholder1
+          </a>   {% endcomment %}
         </div>
-    </div>
+      </li>
+
+      <li class="header-item" style=" height: 100%; display: inline-block; padding: 0px 10px; color:black;">
+        <a href="#" class="hover-overlay">
+          <span><i class="fa fa-question-circle" style="color:black;"></i></span>
+        </a>  
+      </li>
+
+      <li class="header-item dropdown-profile" style="display: inline-block;">
+        <a class="header-item my-auto text-dark hover-overlay" style=" height: 100%; display: inline-block; vertical-align:middle; padding-left:1rem; padding-right:1rem;" href="#" id="profileNavBar"
+            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{request.user.username}}
+            {% if not request.user.profile_pic %}
+            <img src="{% static 'img/profile/profile-picture.png' %}" style="width : 40px; height: 40px; margin-left: 1rem;" alt="Profile Picture" class="rounded-circle img-fluid" id="myimage">
+            {% else %}
+            <img src="{{ request.user.profile_pic.url }}"  style="width: 40px; height: 40px; margin-left: 1rem;" Profile Picture class="rounded-circle img-fluid" id="myimage">
+            {% endif %}   
+        </a>
+
+          <div class="profile-menu dropdown-menu mr-3" id="profileDropdown" aria-labelledby="navbarDropdownMenuLink">
+            <div class="profile-menu-header" style="text-align:right; margin: 0px 10px;">
+            </div>
+            <div class="profile-menu-body" style="min-height:132px; width:100%; align-items:center; grid-row:2/3; display: flex; align-items: center;">
+              <div class="col">
+                {% if not request.user.profile_pic %}
+                <img src="{% static 'img/profile/profile-picture.png' %}" style="width : 88px; height: 88px; margin:20px;" alt="Profile Picture" class="rounded-circle img-fluid" id="myimage">
+                {% else %}
+                <img src="{{ request.user.profile_pic.url }}"  style="width : 88px; height: 88px; margin:20px;" Profile Picture class="rounded-circle img-fluid" id="myimage">
+                {% endif %}              
+              </div>
+
+              <div class="col">
+                <div class="account-username" style="font-weight:bold; font-size: 16px;">{{request.user.name}}</div>
+                <div class="account-email">{{request.user.email}}</div>
+                <div class="account-view-account">
+                  <span style="color:rgb(23, 23, 50)">
+                    <a href="{% url 'viewUser' request.user.pk %}">View Profile</a>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="profile-menu-foot" style="align-items:center; display: flex; justify-content: right; margin-right: 20px;">
+              <a class="profile-item" data-bs-toggle="modal" data-bs-target="#exampleModal" role="button">
+                Log Out
+              </a>
+            </div>
+
+          </div>
+      </li>
+    </ul>
+
+    <!--Don't remove this for now, might need it later.-->
+    <!--<div class="col sm-6">
+      <nav aria-label="breadcrumb">
+        {% if breadcrumbs %}
+        <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+          {% for crumb in breadcrumbs.crumbs %}
+
+          <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" {% if forloop.last %} aria-current="page"
+              {% endif %} href="{{crumb.url}}">{{crumb.text}}</a>
+          </li>
+          {% endfor %}
+        </ol>
+        <h6 class="font-weight-bolder mb-0">{{breadcrumbs.main_title }}</h6>
+
+        {% else %}
+        <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+          <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Smart Poultry</a>
+          </li>
+          <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
+        </ol>
+        <h6 class="font-weight-bolder mb-0">Dashboard</h6>
+        {% endif %}
+      </nav>
+    </div>-->
+    
+    <!--<div class="col sm-4">
+      <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+        </div>
+        <ul class="navbar-nav justify-content-end" style="margin-right: 6%">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list-4"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          </button>
+          <div class="collapse navbar-collapse" id="navbar-list-4">
+            <ul class="navbar-nav">
+              <li class="nav-item d-flex align-items-center">
+                <a href="#" class="nav-link text-body font-weight-bold">
+                  <span class="d-sm-inline d-none">{{request.user.username}}</span>
+                </a>
+                <a href="#" class="nav-link text-body font-weight-bold" >
+                  {% if not request.user.profile_pic %}
+                  <img src="{% static 'img/profile/profile-picture.png' %}" style="width : 40px; height: 40px" alt="Profile Picture" class="rounded-circle img-fluid" id="myimage">
+                  {% else %}
+                  <img src="{{ request.user.profile_pic.url }}"  style="width: 40px; height: 40px;"Profile Picture" class="rounded-circle img-fluid" id="myimage">
+                  {% endif %}
+                </a>
+              </li>
+              <li class="nav-item dropdown" style="margin-top: 10px">
+                <a class="nav-link dropdown-toggle my-auto" style="display: inline-block; vertical-align:middle;" href="#" id="navbarDropdownMenuLink"
+                  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                </a>
+                <div class="dropdown-menu mr-3" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="{% url 'viewUser' request.user.pk %}">View Profile</a>
+                  <a class="dropdown-item" href="{% url 'editUser' request.user.pk %}">Update Profile</a>
+                  {% comment %} <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a> {% endcomment %}
+                  <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Log Out
+                  </button>
+                </div>
+              </li>
+              <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                <a href="#" class="nav-link text-body p-0" id="iconNavbarSidenav">
+                  <div class="sidenav-toggler-inner">
+                    <i class="sidenav-toggler-line"></i>
+                    <i class="sidenav-toggler-line"></i>
+                    <i class="sidenav-toggler-line"></i>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+      </div>
+    </div>-->
 
     <!--pop modal-->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -94,5 +241,56 @@
         }
       }
     </script>
+
+    <script>
+      document.getElementById("profileDropdown").addEventListener("click", function(e){
+        e.stopPropagation();
+      })     
+    </script>
+
+    <script>
+      // function dropdownNotification() {
+      //     var getItemRegsList = document.getElementsByClassName("notification-menu");
+      //     var displaySetting = getItemRegsList.style.display;
+      //     var getItemRegs = document.getElementById("notification-item");
+      //     if (displaySetting == 'block') {
+      //         getItemRegs.style.color = "#67748e";
+      //         getItemRegsList.style.display = 'none';
+      //     } else {
+      //         getItemRegs.style.color = "#5856D6";
+      //         getItemRegsList.style.display = 'block';
+      //     }
+      // }
+
+    </script>
+  </div>
 </nav>
+{% if messages %}
+{% for message in messages %}
+    {% if 'error' in message.tags %}
+        <div class="d-flex w-100 justify-content-end">
+            <div id="myDiv" class="alert alert-danger alert-dismissible position-absolute" role="alert" style="width:50%; z-index: 5000;">
+                {{ message }}
+                <a href="#" class="btn-close" data-dismiss="alert" aria-label="Close"> &times;</a>
+            </div>
+        </div>
+    {% endif %}
+    {% if 'success' in message.tags %}
+        <div class="d-flex w-100 justify-content-end">
+            <div id="myDiv" class="alert alert-default alert-dismissible position-absolute" role="alert" style="background-color: rgb(160, 232, 179); width: 50%; z-index: 5000;">  
+                {{ message }}
+                <a href="#" class="btn-close" data-dismiss="alert" aria-label="Close"> &times;</a>
+            </div>
+        </div>
+    {% endif %}
+    {% if 'warning' in message.tags %}
+    <div class="d-flex w-100 justify-content-end">
+        <div id="myDiv" class="alert alert-danger alert-dismissible position-absolute" role="alert"  style="width:50%; color:black; z-index: 5000;">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">&times;</button> 
+        </div>
+    </div>
+    {% endif %}
+{% endfor %}
+{% endif %}
 <!-- End Navbar -->

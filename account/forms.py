@@ -24,6 +24,32 @@ class createUserForm(UserCreationForm):
     contact_number = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Please enter contact number."}),
         label="Contact Number",
     )
-    class meta:
+    class Meta:
+        model = Account
+        fields = ("username","name","email","contact_number")
+
+class viewUserForm(forms.ModelForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Username","disabled": "disabled"}))
+    name = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Full Name.","disabled": "disabled"}), 
+        label="Full Name",
+    )
+    email = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Email.","disabled": "disabled"}))
+    contact_number = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Please enter contact number.","disabled": "disabled"}),
+        label="Contact Number",
+    )
+    class Meta:
+        model = Account
+        fields = ("username","name","email","contact_number")
+
+class editUserForm(UserChangeForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Username"}))
+    name = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Full Name."}), 
+        label="Full Name",
+    )
+    email = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Email."}))
+    contact_number = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Please enter contact number."}),
+        label="Contact Number",
+    )
+    class Meta:
         model = Account
         fields = ("username","name","email","contact_number")

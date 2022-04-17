@@ -28,3 +28,7 @@ def list_restaurant(request):
         'form' : queryset
     }     
     return render(request, "list_restaurant.html", context)
+
+def add_review(request):
+
+    return render(request, "add_review.html")
