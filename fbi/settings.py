@@ -90,8 +90,13 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': str(os.path.join(BASE_DIR, "db.sqlite3"))
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'fnbadmin',
+        'PASSWORD': 'Password1',
+        'HOST': 'fnbdatabase.postgres.database.azure.com',
+        'PORT': 5432,
+        'OPTIONS': {'sslmode': 'require'},
     }
 }
 
