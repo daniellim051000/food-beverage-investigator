@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from data.forms import addRestaurant
+from data.forms import addRestaurant, addReview
 from data.models import Restaurant
 
 # Create your views here.
@@ -30,5 +30,14 @@ def list_restaurant(request):
     return render(request, "list_restaurant.html", context)
 
 def add_review(request):
-
-    return render(request, "add_review.html")
+    if request.method == "POST":
+        review = addReview(request.POST)
+        if review.is_valid():
+           review.save()
+           messages.success('Review Added Successfully')
+        else:
+            messages.error('There is something wrong with the submission')
+    
+    else:
+        form = addReview()
+    return render(request, "add_review.html", {"form": form})

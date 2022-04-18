@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block content_container %}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/itemRegs.css' %}">
+    <style>
+        .asteriskField {
+            display: none;
+        }
+    </style>
+    <title>Add Review and Rating</title>
+    <h1 class="h3 mb-0 text-gray-800">Add Review and Rating</h1><br>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form|crispy}}
+        <br>
+        <button type="submit" class="btn btn-secondary">Submit</button>
+    </form>
+
+    {% endblock content_container %}
+    {% block javascript %}
+    <script src="{% static 'js/google_map.js' %}"></script>
+    {% endblock %}

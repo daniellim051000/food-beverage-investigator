@@ -1,3 +1,4 @@
+import imp
 from venv import create
 from django.shortcuts import render, redirect
 from django.views import View
@@ -7,6 +8,7 @@ from django.views.generic import (
 
 from account.models import *
 from account.forms import *
+from data.models import *
 
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.models import auth
@@ -60,7 +62,13 @@ def register(request):
     return render(request, "login.html", {"create_form": create_form})
 
 def homepage(request):
-    return render(request, "home.html")
+    user = Account.objects.filter(is_superuser=False).count()
+    rest = Restaurant.objects.all().count()
+    context = {
+        "user_count" : user,
+        "rest_count" : rest
+    }
+    return render(request, "home.html", context)
 
 class ViewUserView(View, LoginRequiredMixin, PermissionRequiredMixin):
     permission_required = 'accounts.view_account'

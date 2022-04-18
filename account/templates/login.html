@@ -41,9 +41,9 @@
 					<form method="POST" id="addForm" action={% url 'register' %}>
 						{% csrf_token %}
 						<div class="row">
-							{% for form in create_form %}
-							<div class="col-md-6">
-								{{form|as_crispy_field}}
+							{% for form2 in create_form %}
+							<div class="col-md-6 pt-2 pb-1">
+								{{form2|as_crispy_field}}
 							</div>
 							{% endfor %}
 						</div>

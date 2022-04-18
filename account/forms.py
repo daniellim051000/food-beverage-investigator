@@ -17,11 +17,11 @@ class loginForm(AuthenticationForm):
 
 class createUserForm(UserCreationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Username"}))
-    name = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Full Name."}), 
+    name = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Full Name"}), 
         label="Full Name",
     )
-    email = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Email."}))
-    contact_number = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Please enter contact number."}),
+    email = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Email"}))
+    contact_number = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Contact Number"}),
         label="Contact Number",
     )
     class Meta:

@@ -49,8 +49,8 @@ class Restaurant(models.Model):
 class RestaurantReview(models.Model):
     review_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     restaurant = models.ForeignKey(Restaurant, related_name="restaurant", on_delete=models.SET_NULL, null=True)
-    review = models.TextField(blank=True, null=True)
-    rating = models.FloatField(default=0.0, validators=[MinValueValidator(0.0), MaxValueValidator(5.0)])
+    review = models.TextField('Review', blank=True, null=True)
+    rating = models.FloatField('Rating', default=0.0, validators=[MinValueValidator(0.0), MaxValueValidator(5.0)])
 
     def __str__(self):
         return self.restaurant
