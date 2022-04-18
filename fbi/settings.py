@@ -30,6 +30,7 @@ ALLOWED_HOSTS = [
     '20.43.162.199',
     '20.43.162.223',
     '20.43.162.150',
+    'https://foodnbeverage.azurewebsites.net/',
     ]
 
 
