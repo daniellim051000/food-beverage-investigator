@@ -45,8 +45,8 @@ jobs:
           path: |
             . 
             !venv/
-            
-    verify-tkinter:
+
+  verify-tkinter:
     name: verify-tkinter
     runs-on: ubuntu-latest
     steps:
