@@ -1,6 +1,6 @@
 asgiref==3.4.1
 backports.zoneinfo==0.2.1
-Django==4.0
+Django==3.2
 django-braces==1.15.0
 django-crispy-forms==1.13.0
 django-model-utils==4.2.0
