@@ -11,18 +11,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  verify-tkinter:
-    name: verify-tkinter
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python version
-        uses: actions/setup-python@v1
-        with:
-          python-version: "3.9"
-      - name: show tk version
-        run: |
-          python -c "import tkinter;print(tkinter.TkVersion)"
   build:
     runs-on: ubuntu-latest
 
@@ -57,6 +45,19 @@ jobs:
           path: |
             . 
             !venv/
+            
+    verify-tkinter:
+    name: verify-tkinter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python version
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.9"
+      - name: show tk version
+        run: |
+          python -c "import tkinter;print(tkinter.TkVersion)"
 
   deploy:
     runs-on: ubuntu-latest
