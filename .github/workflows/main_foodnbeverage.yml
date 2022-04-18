@@ -29,6 +29,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Install TK dependency
+        run: |
+          sudo apt-get update
+          sudo apt-get install python3-tk
+          sudo apt install -y tk
+
       - name: Set up Python version
         uses: actions/setup-python@v1
         with:
