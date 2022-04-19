@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
-    'star_ratings',
     
     'account',
     'dashboard',
@@ -83,10 +82,25 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': str(os.path.join(BASE_DIR, "db.sqlite3"))
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': str(os.path.join(BASE_DIR, "db.sqlite3"))
+        'ENGINE': 'mssql',
+        'HOST': 'foodanalytics.database.windows.net',
+        'PORT': '',
+        'NAME': 'fooddb',
+        'USER': 'fbiadmin',
+        'PASSWORD': 'Admin@123456',
+        'OPTIONS': {
+            'driver': "ODBC Driver 17 for SQL Server",
+            'unicode_results': True,
+        },
     }
 }
 

@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from data.forms import addRestaurant, addReview
-from data.models import Restaurant
+from data.models import Restaurant, RestaurantReview
 
 # Create your views here.
 def add_restaurant(request):
@@ -23,9 +23,10 @@ def add_restaurant(request):
 
 def list_restaurant(request):
     queryset = Restaurant.objects.all()
-
+    form2 = addRestaurant()
     context = {
-        'form' : queryset
+        'form' : queryset,
+        'form2': form2
     }     
     return render(request, "list_restaurant.html", context)
 
@@ -41,3 +42,15 @@ def add_review(request):
     else:
         form = addReview()
     return render(request, "add_review.html", {"form": form})
+
+def list_review(request):
+    queryset = RestaurantReview.objects.all()
+
+    context = {
+        'form' : queryset
+    }
+    return render(request, "list_review.html", context)
+
+def edit_restaurant(request):
+
+    return redirect(list_restaurant)

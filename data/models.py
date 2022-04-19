@@ -29,7 +29,6 @@ SERVING = (
 )
 
 class Restaurant(models.Model):
-    restaurant_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     restaurant_name = models.CharField(max_length=250, unique=False, blank=False)
     address = models.CharField(max_length=300, unique=False, blank=False)
     restaurant_type = models.CharField(max_length=50, unique=False, blank=False)
@@ -47,7 +46,6 @@ class Restaurant(models.Model):
         return self.restaurant_name
 
 class RestaurantReview(models.Model):
-    review_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     restaurant = models.ForeignKey(Restaurant, related_name="restaurant", on_delete=models.SET_NULL, null=True)
     review = models.TextField('Review', blank=True, null=True)
     rating = models.FloatField('Rating', default=0.0, validators=[MinValueValidator(0.0), MaxValueValidator(5.0)])
