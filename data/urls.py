@@ -9,5 +9,7 @@ urlpatterns = [
     path("", views.list_restaurant, name="data_list"),
     path("add_data", views.add_restaurant, name="add_data"),
     path("add_review", views.add_review, name="add_review"),
-    # url(r’^ratings/’, include(‘star_ratings. urls’, namespace=’ratings’, app_name=’ratings’)),
+    path("edit_restaurant", views.edit_restaurant, name="edit_restaurant"),
+    path("list_review", views.list_review, name="list_review"),
+    
 ]
