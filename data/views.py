@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
+import random
 from data.forms import addRestaurant, addReview
 from data.models import Restaurant, RestaurantReview
 
@@ -9,6 +10,8 @@ def add_restaurant(request):
         form = addRestaurant(request.POST)
         print(form)
         if form.is_valid():
+            form.save(commit=False)
+            form.sentiment = random.randint(0, 1)
             form.save()
             messages.success(request, 'Restaurant added successfully!')
             return redirect('home')

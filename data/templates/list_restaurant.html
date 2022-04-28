@@ -18,8 +18,11 @@
             <tr>
               <th class="text-center text-uppercase text-secondary text-mb font-weight-bolder opacity-15">Restaurant</th>
               <th class="text-center text-uppercase text-secondary text-mb font-weight-bolder opacity-15">Type</th>
+              <th class="text-center text-uppercase text-secondary text-mb font-weight-bolder opacity-15">Hygiene Level</th>
+              <th class="text-center text-uppercase text-secondary text-mb font-weight-bolder opacity-15">Serving Time</th>
               <th class="text-center text-uppercase text-secondary text-mb font-weight-bolder opacity-15">Online Order</th>
               <th class="text-center text-uppercase text-secondary text-mb font-weight-bolder opacity-15">Booking</th>
+              <th class="text-center text-uppercase text-secondary text-mb font-weight-bolder opacity-15">Sentiment</th>
               <th class="text-center text-uppercase text-secondary text-mb font-weight-bolder opacity-15">Action</th>
             </tr>
           </thead>
@@ -28,8 +31,15 @@
             <tr>
               <td class="align-middle text-center text-m">{{ form.restaurant_name }}</td>
               <td class="align-middle text-center text-m">{{ form.restaurant_type }}</td>
+              <td class="align-middle text-center text-m">{{ form.hygiene_level }}</td>
+              <td class="align-middle text-center text-m">{{ form.average_serving }}</td>
               <td class="align-middle text-center text-m">{{ form.online_order }}</td>
               <td class="align-middle text-center text-m">{{ form.booking }}</td>
+              {% if form.sentiment == True %}
+              <td class="align-middle text-center text-m"><i class="fas fa-smile" style="color: greenyellow;"></i></td>
+              {% else %}
+              <td class="align-middle text-center text-m"><i class="fas fa-angry" style="color: red;"></i></td>
+              {% endif %}
               <td class="align-middle text-center text-m">
                 <button onclick="editEvent('{{form.id}}', '{{data_json}}')" data-toggle="modal"
                 data-target="#editFormModal" class="badge badge-sm outline-blue">Edit</button>
